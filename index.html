@@ -181,13 +181,14 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* Hero Section - FIXED */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
             background: 
                 radial-gradient(circle at 20% 80%, var(--glow-cyan) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, var(--glow-green) 0%, transparent 50%);
@@ -198,48 +199,55 @@
             max-width: 800px;
             padding: 0 2rem;
             z-index: 2;
+            margin: 2rem auto; /* Add margin for breathing room */
+            min-height: fit-content; /* Ensure it fits content */
+        }
+
+        /* Matrix Canvas Styling - FIXED */
+        .matrix-canvas {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+            opacity: 0.6 !important;
         }
 
         /* Profile Image Styles */
-        .profile-image-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            position: relative;
-        }
+        /* Profile Image Styles - FIXED */
+.profile-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+    padding: 20px; /* Add padding to prevent cutoff */
+}
 
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            background: var(--gradient-primary);
-            padding: 4px;
-            position: relative;
-            animation: profileGlow 3s ease-in-out infinite alternate;
-        }
+.profile-image {
+    width: 220px;  /* Slightly larger */
+    height: 220px; /* Slightly larger */
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background: var(--gradient-primary);
+    padding: 6px; /* Increased padding */
+    position: relative;
+    animation: profileGlow 3s ease-in-out infinite alternate;
+    overflow: visible; /* Changed from hidden */
+    flex-shrink: 0; /* Prevent shrinking */
+}
 
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            z-index: -1;
-            opacity: 0.3;
-            animation: pulseRing 2s ease-in-out infinite;
-        }
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top; /* Focus on face area */
+    display: block;
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Inner border for definition */
+}
 
         @keyframes profileGlow {
             from {
@@ -278,13 +286,13 @@
 
         .hero-subtitle {
             font-size: 1.5rem;
-            color: var(--text-secondary);
+            color: #ffffff;
             margin-bottom: 2rem;
         }
 
         .hero-description {
             font-size: 1.1rem;
-            color: var(--text-muted);
+            color: #00ffff;
             margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
@@ -765,20 +773,18 @@
         }
 
         /* Custom Swiper Pagination Dots for Visibility */
-.swiper-pagination-bullet {
-  background-color: var(--accent-green); /* Matches your theme */
-  opacity: 0.6;
-  width: 10px;
-  height: 10px;
-}
+        .swiper-pagination-bullet {
+          background-color: var(--accent-green);
+          opacity: 0.6;
+          width: 10px;
+          height: 10px;
+        }
 
-.swiper-pagination-bullet-active {
-  background-color: var(--accent-cyan); /* Stands out */
-  opacity: 1;
-  transform: scale(1.3);
-}
-
-    
+        .swiper-pagination-bullet-active {
+          background-color: var(--accent-cyan);
+          opacity: 1;
+          transform: scale(1.3);
+        }
 
         /* Certifications Grid */
         .certs-grid {
@@ -857,7 +863,6 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
-
 
         /* Blog Cards */
         .blogs-grid {
@@ -1430,27 +1435,27 @@
                 padding: 1rem;
             }
         }
-    /* Ensure pagination is styled and positioned below the slides */
-.swiper-pagination {
-  bottom: 0 !important;
-  text-align: center;
-  z-index: 10;
-}
 
-.swiper-pagination-bullet {
-  background-color: var(--accent-green);
-  opacity: 0.5;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
-}
+        /* Ensure pagination is styled and positioned below the slides */
+        .swiper-pagination {
+          bottom: 0 !important;
+          text-align: center;
+          z-index: 10;
+        }
 
-.swiper-pagination-bullet-active {
-  background-color: var(--accent-cyan);
-  opacity: 1;
-  transform: scale(1.3);
-}
+        .swiper-pagination-bullet {
+          background-color: var(--accent-green);
+          opacity: 0.5;
+          width: 10px;
+          height: 10px;
+          margin: 0 5px;
+        }
 
+        .swiper-pagination-bullet-active {
+          background-color: var(--accent-cyan);
+          opacity: 1;
+          transform: scale(1.3);
+        }
     </style>
 </head>
 <body>
@@ -1463,8 +1468,8 @@
     <nav>
         <div class="nav-container">
             <a href="#home" class="flex items-center space-x-2 logo code-font">
-  <img src="assets/logo.png" alt="Jameel Logo" class="w-8 h-8 rounded-full" />
-  <span>Jameel.sec</span>
+                <img src="assets/logo.png" alt="Jameel Logo" class="w-8 h-8 rounded-full" />
+                <span>Jameel.sec</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -1490,7 +1495,6 @@
             <!-- Profile Image -->
             <div class="profile-image-container">
                 <div class="profile-image">
-                    <!-- Replace the src with your actual image URL -->
                     <img src="assets/portfolio.jpeg" alt="Mohd Abdul Jameel - Cybersecurity Engineer">
                 </div>
             </div>
@@ -1678,8 +1682,6 @@
                         </ul>
                     </div>
                 </div>
-
-                
             </div>
         </div>
     </section>
@@ -1801,303 +1803,295 @@
         </div>
     </section>
 
-  <!-- Speaking Events Section -->
-<section id="speaking" class="section">
-  <div class="container">
-    <h2 class="section-title">Speaking & Events</h2>
-    <p class="section-subtitle">
-      Sharing knowledge and inspiring the next generation of cybersecurity professionals
-    </p>
+    <!-- Speaking Events Section -->
+    <section id="speaking" class="section">
+        <div class="container">
+            <h2 class="section-title">Speaking & Events</h2>
+            <p class="section-subtitle">
+                Sharing knowledge and inspiring the next generation of cybersecurity professionals
+            </p>
 
-    <!-- Swiper Carousel -->
-    <div class="swiper speakingSwiper">
-      <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/roadmap.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/roadmap-audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Cybersecurity Career Roadmap</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Spoke at multiple colleges on career paths, specializations, and industry insights.</p>
-          </div>
+            <!-- Swiper Carousel -->
+            <div class="swiper speakingSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/roadmap.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/roadmap-audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Cybersecurity Career Roadmap</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Spoke at multiple colleges on career paths, specializations, and industry insights.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/award.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Technical Talk - Cyber Guardians</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented Cyber Guardians - Defensive Security at MJCET College.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/null.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/null2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Spoke at Nullhyd - Salesforce</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented latest newsbytes, CVEs & tools at Nullhyd hosted by Salesforce.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/gdsc.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/gdsc-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">GDSC - Cybersecurity Lead</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Led a team, presented roadmaps, and mentored students into cybersecurity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/bluehat.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/bluehat-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">BlueHat India 2025</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Attended BlueHat India 2025, won CTFs, and networked with cybersecurity leaders.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/null-g.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/null-com.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Nullhyd - Active Member</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Regularly attend and promote monthly security meetups for knowledge sharing.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-6"></div>
+            </div>
+
+            <!-- Speaking Stats -->
+            <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-[var(--text-secondary)]" data-aos="fade-up">
+                <div>
+                    <div class="text-4xl font-bold text-[var(--accent-green)]">5+</div>
+                    <div class="text-sm">Speaking Events</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[var(--accent-green)]">500+</div>
+                    <div class="text-sm">Attendees Reached</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[var(--accent-green)]">4+</div>
+                    <div class="text-sm">Institutions</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-[var(--accent-green)]">50+</div>
+                    <div class="text-sm">Students Guided</div>
+                </div>
+            </div>
         </div>
-
-        <!-- Slide 2 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/award.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Technical Talk - Cyber Guardians</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented Cyber Guardians - Defensive Security at MJCET College.</p>
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/null.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/null2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Spoke at Nullhyd - Salesforce</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented latest newsbytes, CVEs & tools at Nullhyd hosted by Salesforce.</p>
-          </div>
-        </div>
-
-        <!-- Slide 4 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/gdsc.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/gdsc-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">GDSC - Cybersecurity Lead</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Led a team, presented roadmaps, and mentored students into cybersecurity.</p>
-          </div>
-        </div>
-
-        <!-- Slide 5 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/bluehat.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/bluehat-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">BlueHat India 2025</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Attended BlueHat India 2025, won CTFs, and networked with cybersecurity leaders.</p>
-          </div>
-        </div>
-
-        <!-- Slide 6 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/null-g.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/null-com.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Nullhyd - Active Member</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Regularly attend and promote monthly security meetups for knowledge sharing.</p>
-          </div>
-        </div>
-      </div>
-      <!-- Pagination -->
-        <div class="swiper-pagination mt-6"></div>
-    </div>
-    
-
-    <!-- Speaking Stats -->
-    <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-[var(--text-secondary)]" data-aos="fade-up">
-      <div>
-        <div class="text-4xl font-bold text-[var(--accent-green)]">5+</div>
-        <div class="text-sm">Speaking Events</div>
-      </div>
-      <div>
-        <div class="text-4xl font-bold text-[var(--accent-green)]">500+</div>
-        <div class="text-sm">Attendees Reached</div>
-      </div>
-      <div>
-        <div class="text-4xl font-bold text-[var(--accent-green)]">4+</div>
-        <div class="text-sm">Institutions</div>
-      </div>
-      <div>
-        <div class="text-4xl font-bold text-[var(--accent-green)]">50+</div>
-        <div class="text-sm">Students Guided</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
+    </section>
 
     <!-- Certifications Section -->
     <section id="certifications" class="section">
-  <div class="container">
-    <h2 class="section-title">Certifications & Achievements</h2>
-    <p class="section-subtitle">
-      Industry-recognized credentials validating expertise across cybersecurity domains
-    </p>
+        <div class="container">
+            <h2 class="section-title">Certifications & Achievements</h2>
+            <p class="section-subtitle">
+                Industry-recognized credentials validating expertise across cybersecurity domains
+            </p>
 
-    <div class="certs-grid">
+            <div class="certs-grid">
+                <!-- AWS -->
+                <a href="https://www.credly.com/badges/b4d7ae31-e6db-428e-b6ce-0d4b0ed03753" target="_blank" class="cert-card fade-in hover:shadow-xl transition-transform transform hover:-translate-y-1">
+                    <img src="assets/logos/aws.png" alt="AWS Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">AWS Solutions Architect</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                </a>
 
-      <!-- AWS -->
-      <a href="https://www.credly.com/badges/b4d7ae31-e6db-428e-b6ce-0d4b0ed03753" target="_blank" class="cert-card fade-in hover:shadow-xl transition-transform transform hover:-translate-y-1">
-        <img src="assets/logos/aws.png" alt="AWS Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">AWS Solutions Architect</h3>
-        <p class="cert-issuer">Amazon Web Services</p>
-      </a>
+                <!-- GCP -->
+                <a href="https://www.credly.com/badges/658054fb-7835-4cc4-a1e2-5d39691d90d0" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/gcp.png" alt="GCP Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Professional Cloud Security Engineer</h3>
+                    <p class="cert-issuer">Google Cloud</p>
+                </a>
 
-      <!-- GCP -->
-      <a href="https://www.credly.com/badges/658054fb-7835-4cc4-a1e2-5d39691d90d0" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/gcp.png" alt="GCP Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Professional Cloud Security Engineer</h3>
-        <p class="cert-issuer">Google Cloud</p>
-      </a>
+                <!-- CEH -->
+                <a href="https://aspen.eccouncil.org/VerifyBadge?type=certification&code=YOUR_CEH_ID" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/eccouncil.png" alt="EC-Council Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Certified Ethical Hacker (CEH)</h3>
+                    <p class="cert-issuer">EC-Council</p>
+                </a>
 
-      <!-- CEH -->
-      <a href="https://aspen.eccouncil.org/VerifyBadge?type=certification&code=YOUR_CEH_ID" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/eccouncil.png" alt="EC-Council Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Certified Ethical Hacker (CEH)</h3>
-        <p class="cert-issuer">EC-Council</p>
-      </a>
+                <!-- Cisco -->
+                <a href="https://www.credly.com/badges/YOUR_CISCO_ID" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/cisco.png" alt="Cisco Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Cisco Certified Network Associate</h3>
+                    <p class="cert-issuer">Cisco Systems</p>
+                </a>
 
-      <!-- Cisco -->
-      <a href="https://www.credly.com/badges/YOUR_CISCO_ID" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/cisco.png" alt="Cisco Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Cisco Certified Network Associate</h3>
-        <p class="cert-issuer">Cisco Systems</p>
-      </a>
+                <!-- Red Hat -->
+                <a href="https://www.credly.com/badges/6b603657-043f-48d8-b69b-b9f2de383162" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/redhat.png" alt="Red Hat Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Red Hat Certified System Administrator</h3>
+                    <p class="cert-issuer">Red Hat</p>
+                </a>
 
-      <!-- Red Hat -->
-      <a href="https://www.credly.com/badges/6b603657-043f-48d8-b69b-b9f2de383162" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/redhat.png" alt="Red Hat Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Red Hat Certified System Administrator</h3>
-        <p class="cert-issuer">Red Hat</p>
-      </a>
+                <!-- APIsec -->
+                <a href="https://www.credly.com/badges/6d0e2f82-1084-49c4-8978-91c2a3026924" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/apisec.png" alt="APIsec Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Certified API Security Analyst</h3>
+                    <p class="cert-issuer">APIsec University</p>
+                </a>
 
-      <!-- APIsec -->
-      <a href="https://www.credly.com/badges/6d0e2f82-1084-49c4-8978-91c2a3026924" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/apisec.png" alt="APIsec Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Certified API Security Analyst</h3>
-        <p class="cert-issuer">APIsec University</p>
-      </a>
+                <!-- ICSI -->
+                <a href="https://icsi.co.uk/verify?cert=YOUR_ICSI_ID" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/icsi.png" alt="ICSI Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Certified Network Security Professional</h3>
+                    <p class="cert-issuer">Secops Group</p>
+                </a>
 
-      <!-- ICSI -->
-      <a href="https://icsi.co.uk/verify?cert=YOUR_ICSI_ID" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/icsi.png" alt="ICSI Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Certified Network Security Professional</h3>
-        <p class="cert-issuer">Secops Group</p>
-      </a>
-
-      <!-- SecOps -->
-      <a href="https://verify.secops.group/YOUR_APPSEC_ID" target="_blank" class="cert-card fade-in">
-        <img src="assets/logos/secops.png" alt="SecOps Group Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
-        <h3 class="cert-name">Certified AppSec Practitioner</h3>
-        <p class="cert-issuer">SecOps Group</p>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- Awards & Recognition -->
-<section id="speaking" class="section">
-  <div class="container">
-    <h2 class="section-title">Awards & Recognition</h2>
-    <p class="section-subtitle">
-      Awards and recognitions for contributions to the cybersecurity community
-    </p>
-
-    <!-- Swiper Carousel -->
-    <div class="swiper speakingSwiper relative pb-12">
-      <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/awards/bluehat-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/awards/bluehat-1.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">CTF Winner @ Bluehat India</h3>
-          </div>
+                <!-- SecOps -->
+                <a href="https://verify.secops.group/YOUR_APPSEC_ID" target="_blank" class="cert-card fade-in">
+                    <img src="assets/logos/secops.png" alt="SecOps Group Logo" class="mx-auto mb-4 w-20 h-20 object-contain" />
+                    <h3 class="cert-name">Certified AppSec Practitioner</h3>
+                    <p class="cert-issuer">SecOps Group</p>
+                </a>
+            </div>
         </div>
+    </section>
 
-        <!-- Slide 2 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/speaking/award.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/speaking/audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Technical Talk - Cyber Guardians</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented Cyber Guardians - Defensive Security at MJCET College.</p>
-          </div>
+    <!-- Awards & Recognition -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Awards & Recognition</h2>
+            <p class="section-subtitle">
+                Awards and recognitions for contributions to the cybersecurity community
+            </p>
+
+            <!-- Swiper Carousel -->
+            <div class="swiper speakingSwiper relative pb-12">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/awards/bluehat-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/awards/bluehat-1.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">CTF Winner @ Bluehat India</h3>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/speaking/award.png" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/speaking/audience.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Technical Talk - Cyber Guardians</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Presented Cyber Guardians - Defensive Security at MJCET College.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/awards/gdsc-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/awards/gdsc-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Cybersecurity Lead - GDSC</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Led a team, presented roadmaps, and mentored students into cybersecurity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/awards/linkedin.jpeg" class="rounded-xl mb-4 object-cover h-66 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">LinkedIn Top Cybersecurity Voice</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Recognized for active contribution in educating and inspiring professionals online.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/awards/ieee-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/awards/ieee-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Secretary - IEEE Computer Society</h3>
+                            <p class="text-sm text-[var(--text-secondary)] mt-2">Organized and led tech-driven cybersecurity initiatives with IEEE.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6 -->
+                    <div class="swiper-slide" data-aos="fade-up">
+                        <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
+                            <img src="assets/awards/aicte-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <img src="assets/awards/aicte-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
+                            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Presented Cybersecurity Roadmap @AICTE Event</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination placed properly -->
+                <div class="swiper-pagination mt-6"></div>
+            </div>
         </div>
+    </section>
 
-        <!-- Slide 3 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/awards/gdsc-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/awards/gdsc-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Cybersecurity Lead - GDSC</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Led a team, presented roadmaps, and mentored students into cybersecurity.</p>
-          </div>
+    <!-- Blogs Section -->
+    <section id="blogs" class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Insights</h2>
+            <p class="section-subtitle">
+                Sharing cybersecurity knowledge through blogs and community initiatives
+            </p>
+
+            <div class="blogs-grid">
+                <!-- Medium Blog Card -->
+                <a href="https://medium.com/@majameeljameey" 
+                   class="blog-card-new" 
+                   target="_blank">
+                    <div class="blog-icon">
+                        <img src="assets/medium.png" alt="Medium Logo" class="w-35 h-30" />
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title-new">Explore My Medium Blogs</h3>
+                        <p class="blog-excerpt-new">
+                            Dive into practical insights, security walkthroughs, and technical deep-dives from real-world cybersecurity experiences.
+                        </p>
+                        <div class="blog-meta-new">
+                            <span class="blog-category">Cybersecurity</span>
+                            <span class="blog-views">Visit Profile</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- CyberGuyz Community Card -->
+                <a href="https://chat.whatsapp.com/HHYAW3KaSxrJ1E2SE8LdXo" 
+                   class="blog-card-new" 
+                   target="_blank">
+                    <div class="blog-icon">
+                        <img src="assets/cyberguyz.png" alt="CyberGuyz Logo" class="w-35 h-30" />
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title-new">CyberGuyz Community</h3>
+                        <p class="blog-excerpt-new">
+                            A student-driven cybersecurity community where I mentor and guide beginners by sharing free resources, practical tips, hosting meetups, and career guidance sessions.
+                        </p>
+                        <div class="blog-meta-new">
+                            <span class="blog-category">Community</span>
+                            <span class="blog-views">Join Now</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-
-        <!-- Slide 4 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/awards/linkedin.jpeg" class="rounded-xl mb-4 object-cover h-66 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">LinkedIn Top Cybersecurity Voice</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Recognized for active contribution in educating and inspiring professionals online.</p>
-          </div>
-        </div>
-
-        <!-- Slide 5 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/awards/ieee-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/awards/ieee-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Secretary - IEEE Computer Society</h3>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Organized and led tech-driven cybersecurity initiatives with IEEE.</p>
-          </div>
-        </div>
-
-        <!-- Slide 6 -->
-        <div class="swiper-slide" data-aos="fade-up">
-          <div class="bg-[var(--bg-secondary)] rounded-2xl shadow-xl p-4 transition-transform hover:scale-105 h-[650px] flex flex-col justify-between">
-            <img src="assets/awards/aicte-1.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <img src="assets/awards/aicte-2.jpeg" class="rounded-xl mb-4 object-cover h-60 w-full" />
-            <h3 class="text-lg font-semibold text-[var(--accent-green)]">Presented Cybersecurity Roadmap @AICTE Event</h3>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagination placed properly -->
-      <div class="swiper-pagination mt-6"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Blogs Section -->
-<section id="blogs" class="section">
-  <div class="container">
-    <h2 class="section-title">Technical Insights</h2>
-    <p class="section-subtitle">
-      Sharing cybersecurity knowledge through blogs and community initiatives
-    </p>
-
-    <div class="blogs-grid">
-      <!-- Medium Blog Card -->
-      <a href="https://medium.com/@majameeljameey" 
-         class="blog-card-new" 
-         target="_blank">
-        <div class="blog-icon">
-         <img src="assets/medium.png" alt="CyberGuyz Logo" class="w-35 h-30" />
-        </div>
-        <div class="blog-content">
-          <h3 class="blog-title-new">Explore My Medium Blogs</h3>
-          <p class="blog-excerpt-new">
-            Dive into practical insights, security walkthroughs, and technical deep-dives from real-world cybersecurity experiences.
-          </p>
-          <div class="blog-meta-new">
-            <span class="blog-category">Cybersecurity</span>
-            <span class="blog-views">Visit Profile</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- CyberGuyz Community Card -->
-      <a href="https://chat.whatsapp.com/HHYAW3KaSxrJ1E2SE8LdXo" 
-         class="blog-card-new" 
-         target="_blank">
-        <div class="blog-icon">
-          <img src="assets/cyberguyz.png" alt="CyberGuyz Logo" class="w-35 h-30" />
-        </div>
-        <div class="blog-content">
-          <h3 class="blog-title-new">CyberGuyz Community</h3>
-          <p class="blog-excerpt-new">
-            A student-driven cybersecurity community where I mentor and guide beginners by sharing free resources, practical tips, hosting meetups, and career guidance sessions.
-          </p>
-          <div class="blog-meta-new">
-            <span class="blog-category">Community</span>
-            <span class="blog-views">Join Now</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="section">
@@ -2154,26 +2148,25 @@
                 <div class="contact-form fade-in">
                     <h3 style="color: var(--accent-green); margin-bottom: 2rem; font-size: 1.5rem;">Send Message</h3>
                     <form action="https://formspree.io/f/xzzggkln" method="POST" class="space-y-4 max-w-xl mx-auto">
-  <div>
-    <label for="name" class="block text-sm font-medium text-[var(--text-secondary)]">Full Name</label>
-    <input type="text" id="name" name="name" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]" />
-  </div>
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-[var(--text-secondary)]">Full Name</label>
+                            <input type="text" id="name" name="name" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]" />
+                        </div>
 
-  <div>
-    <label for="email" class="block text-sm font-medium text-[var(--text-secondary)]">Email Address</label>
-    <input type="email" id="email" name="email" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]" />
-  </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-[var(--text-secondary)]">Email Address</label>
+                            <input type="email" id="email" name="email" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]" />
+                        </div>
 
-  <div>
-    <label for="message" class="block text-sm font-medium text-[var(--text-secondary)]">Your Message</label>
-    <textarea id="message" name="message" rows="5" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]"></textarea>
-  </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-[var(--text-secondary)]">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required class="mt-1 w-full p-2 rounded-lg bg-[var(--bg-secondary)] border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-green)]"></textarea>
+                        </div>
 
-  <button type="submit" class="bg-[var(--accent-green)] text-black font-semibold py-2 px-4 rounded-lg hover:bg-[var(--accent-cyan)] transition-colors">
-    Send Message
-  </button>
-</form>
-
+                        <button type="submit" class="bg-[var(--accent-green)] text-black font-semibold py-2 px-4 rounded-lg hover:bg-[var(--accent-cyan)] transition-colors">
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -2183,7 +2176,7 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="www.linkedin.com/in/mohd-abdul-jameel-305ax25" class="social-link" target="_blank">
+                <a href="https://www.linkedin.com/in/mohd-abduljameel-305ax25" class="social-link" target="_blank">
                     <i class="fab fa-linkedin"></i>
                 </a>
                 <a href="https://github.com/majameel" class="social-link" target="_blank">
@@ -2296,36 +2289,6 @@
             });
         });
 
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
-            
-            // Simulate form submission (replace with actual form handler)
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    this.reset();
-                }, 2000);
-            }, 2000);
-        });
-
         // Resume Download
         document.getElementById('downloadResume').addEventListener('click', function(e) {
             e.preventDefault();
@@ -2346,38 +2309,134 @@
             }, 1500);
         });
 
-        // Dynamic background effects
+        // FIXED Background Effects
         function createParticle() {
             const particle = document.createElement('div');
+            
+            // Fix: Use actual hex colors instead of CSS variables
+            const colors = ['#00ffff', '#00ff41']; // cyan and green
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
             particle.style.position = 'fixed';
-            particle.style.width = '2px';
-            particle.style.height = '2px';
-            particle.style.background = Math.random() > 0.5 ? 'var(--accent-cyan)' : 'var(--accent-green)';
+            particle.style.width = '3px';
+            particle.style.height = '3px';
+            particle.style.background = randomColor;
             particle.style.left = Math.random() * window.innerWidth + 'px';
             particle.style.top = '-10px';
             particle.style.pointerEvents = 'none';
-            particle.style.opacity = '0.7';
+            particle.style.opacity = '0.8';
             particle.style.borderRadius = '50%';
-            particle.style.zIndex = '-1';
+            particle.style.zIndex = '10'; // FIXED: Positive z-index
+            particle.style.boxShadow = `0 0 6px ${randomColor}`;
             
             document.body.appendChild(particle);
             
-            const duration = Math.random() * 3000 + 2000;
-            const drift = (Math.random() - 0.5) * 100;
+            const duration = Math.random() * 4000 + 3000;
+            const drift = (Math.random() - 0.5) * 200;
             
-            particle.animate([
-                { transform: 'translateY(0) translateX(0)', opacity: 0.7 },
-                { transform: `translateY(${window.innerHeight + 10}px) translateX(${drift}px)`, opacity: 0 }
+            const animation = particle.animate([
+                { transform: 'translateY(0) translateX(0) scale(1)', opacity: 0.8 },
+                { transform: `translateY(${window.innerHeight + 50}px) translateX(${drift}px) scale(0.5)`, opacity: 0 }
             ], {
                 duration: duration,
-                easing: 'linear'
-            }).onfinish = () => {
-                particle.remove();
+                easing: 'ease-out'
+            });
+            
+            animation.onfinish = () => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
             };
         }
 
-        // Create particles periodically
-        setInterval(createParticle, 300);
+        // FIXED Matrix Rain Effect
+        function createMatrixRain() {
+            console.log('Creating matrix rain...');
+            
+            const hero = document.querySelector('.hero');
+            if (!hero) {
+                console.log('Hero section not found!');
+                return;
+            }
+            
+            // Remove any existing matrix canvas
+            const existingCanvas = hero.querySelector('.matrix-canvas');
+            if (existingCanvas) {
+                existingCanvas.remove();
+            }
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Apply the CSS class and styles
+            canvas.className = 'matrix-canvas';
+            canvas.style.background = 'transparent';
+            
+            hero.appendChild(canvas);
+            
+            // Matrix characters (Japanese + numbers + symbols)
+            const matrix = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789!@#$%^&*";
+            const matrixArray = matrix.split("");
+            
+            let fontSize = 16;
+            let columns, drops = [];
+            
+            function setupCanvas() {
+                const heroRect = hero.getBoundingClientRect();
+                canvas.width = heroRect.width;
+                canvas.height = heroRect.height;
+                
+                columns = Math.floor(canvas.width / fontSize);
+                drops = [];
+                for (let x = 0; x < columns; x++) {
+                    drops[x] = Math.floor(Math.random() * -50);
+                }
+                
+                console.log(`Canvas setup: ${canvas.width}x${canvas.height}, ${columns} columns`);
+            }
+            
+            setupCanvas();
+            window.addEventListener('resize', setupCanvas);
+            
+            function draw() {
+                // Create trailing effect - lighter fade
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Set text properties
+                ctx.font = `${fontSize}px "Courier New", monospace`;
+                ctx.textAlign = 'center';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    const x = i * fontSize + fontSize/2;
+                    const y = drops[i] * fontSize;
+                    
+                    // Much lighter colors for better text visibility
+                    const brightness = Math.random();
+                    if (brightness > 0.9) {
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // Very light white
+                    } else if (brightness > 0.7) {
+                        ctx.fillStyle = 'rgba(0, 255, 65, 0.4)'; // Light green
+                    } else {
+                        ctx.fillStyle = 'rgba(0, 170, 0, 0.2)'; // Very light green
+                    }
+                    
+                    ctx.fillText(text, x, y);
+                    
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            // Start animation
+            const matrixInterval = setInterval(draw, 50);
+            hero.matrixInterval = matrixInterval;
+            
+            console.log('Matrix rain setup complete!');
+        }
 
         // Cyber typing effect for code elements
         function typeWriter(element, text, speed = 50) {
@@ -2394,105 +2453,104 @@
             typing();
         }
 
-        // Initialize typing effect on load
-        setTimeout(() => {
-            const codeElements = document.querySelectorAll('.code-font');
-            codeElements.forEach((el, index) => {
-                if (el.textContent.includes('[') || el.textContent.includes('INITIALIZING')) {
-                    const originalText = el.textContent;
-                    setTimeout(() => {
-                        typeWriter(el, originalText, 30);
-                    }, index * 500);
-                }
-            });
-        }, 2500);
+        // FIXED INITIALIZATION
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - starting background effects...');
+            
+            // Start particles after loading screen
+            setTimeout(() => {
+                setInterval(createParticle, 200);
+                console.log('Particles started');
+            }, 1000);
+            
+            // Start matrix rain
+            setTimeout(() => {
+                createMatrixRain();
+                console.log('Matrix rain started');
+            }, 3000);
 
-        // Add matrix rain effect to hero section
-        function createMatrixRain() {
-            const hero = document.querySelector('.hero');
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.style.position = 'absolute';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.style.pointerEvents = 'none';
-            canvas.style.opacity = '0.1';
-            canvas.style.zIndex = '1';
-            
-            hero.appendChild(canvas);
-            
-            function resizeCanvas() {
-                canvas.width = hero.offsetWidth;
-                canvas.height = hero.offsetHeight;
-            }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()";
-            const matrixArray = matrix.split("");
-            
-            const fontSize = 12;
-            const columns = canvas.width / fontSize;
-            
-            const drops = [];
-            for (let x = 0; x < columns; x++) {
-                drops[x] = 1;
-            }
-            
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = '#00ffff';
-                ctx.font = fontSize + 'px monospace';
-                
-                for (let i = 0; i < drops.length; i++) {
-                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
+            // Initialize typing effect
+            setTimeout(() => {
+                const codeElements = document.querySelectorAll('.code-font');
+                codeElements.forEach((el, index) => {
+                    if (el.textContent.includes('[') || el.textContent.includes('INITIALIZING')) {
+                        const originalText = el.textContent;
+                        setTimeout(() => {
+                            typeWriter(el, originalText, 30);
+                        }, index * 500);
                     }
-                    drops[i]++;
+                });
+            }, 2500);
+        });
+
+        // Backup initialization
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const existingCanvas = document.querySelector('.matrix-canvas');
+                if (!existingCanvas) {
+                    console.log('Backup: Creating matrix rain...');
+                    createMatrixRain();
+                }
+                
+                // Test particle
+                createParticle();
+                console.log('Backup initialization complete');
+            }, 2500);
+        });
+
+        // Test function for debugging
+        function testEffects() {
+            console.log('=== TESTING BACKGROUND EFFECTS ===');
+            
+            // Test particle
+            createParticle();
+            console.log('Test particle created');
+            
+            // Test matrix
+            const hero = document.querySelector('.hero');
+            console.log('Hero element found:', hero ? 'YES' : 'NO');
+            
+            if (hero) {
+                const existingCanvas = hero.querySelector('.matrix-canvas');
+                console.log('Existing canvas:', existingCanvas ? 'YES' : 'NO');
+                
+                if (!existingCanvas) {
+                    createMatrixRain();
+                    console.log('Test matrix rain created');
                 }
             }
-            
-            setInterval(draw, 35);
         }
         
-        // Initialize matrix effect after page load
-        setTimeout(createMatrixRain, 3000);
+        // Run test after everything loads
+        setTimeout(testEffects, 5000);
+
     </script>
+    
     <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- AOS JS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<!-- Init Swiper & AOS -->
-<script>
-  const swiper = new Swiper(".speakingSwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    loop: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      640: { slidesPerView: 1 },
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-    },
-  });
+    <!-- Init Swiper & AOS -->
+    <script>
+        const swiper = new Swiper(".speakingSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            },
+        });
 
-  AOS.init({ once: true, duration: 700 });
-</script>
+        AOS.init({ once: true, duration: 700 });
+    </script>
 
 </body>
 </html>
-                
