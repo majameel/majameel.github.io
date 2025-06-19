@@ -2277,75 +2277,19 @@
             });
         });
 
-        // Resume Download
-        document.getElementById('downloadResume').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Create a temporary download link
-            const link = document.createElement('a');
-            link.href = 'https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing'; // Replace with actual resume URL
-            link.download = 'Mohd_Abdul_Jameel_Resume.pdf';
-            
-            // Simulate download
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-            
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-download"></i> Download Resume';
-                }, 2000);
-            }, 1500);
-        });
+       // Resume Download (Redirect to Google Drive)
+document.getElementById('downloadResume').addEventListener('click', function(e) {
+    e.preventDefault();
 
-        // FIXED Background Effects
-        function createParticle() {
-            const particle = document.createElement('div');
-            
-            // Fix: Use actual hex colors instead of CSS variables
-            const colors = ['#00ffff', '#00ff41']; // cyan and green
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            particle.style.position = 'fixed';
-            particle.style.width = '3px';
-            particle.style.height = '3px';
-            particle.style.background = randomColor;
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = '-10px';
-            particle.style.pointerEvents = 'none';
-            particle.style.opacity = '0.8';
-            particle.style.borderRadius = '50%';
-            particle.style.zIndex = '10'; // FIXED: Positive z-index
-            particle.style.boxShadow = `0 0 6px ${randomColor}`;
-            
-            document.body.appendChild(particle);
-            
-            const duration = Math.random() * 4000 + 3000;
-            const drift = (Math.random() - 0.5) * 200;
-            
-            const animation = particle.animate([
-                { transform: 'translateY(0) translateX(0) scale(1)', opacity: 0.8 },
-                { transform: `translateY(${window.innerHeight + 50}px) translateX(${drift}px) scale(0.5)`, opacity: 0 }
-            ], {
-                duration: duration,
-                easing: 'ease-out'
-            });
-            
-            animation.onfinish = () => {
-                if (particle.parentNode) {
-                    particle.remove();
-                }
-            };
-        }
+    // Show loading animation
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
 
-        // FIXED Matrix Rain Effect
-        function createMatrixRain() {
-            console.log('Creating matrix rain...');
-            
-            const hero = document.querySelector('.hero');
-            if (!hero) {
-                console.log('Hero section not found!');
-                return;
-            }
+    // Redirect to the Google Drive resume link after a short delay
+    setTimeout(() => {
+        window.location.href = 'https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing'; // Your actual resume link
+    }, 1200);
+});
+
             
             // Remove any existing matrix canvas
             const existingCanvas = hero.querySelector('.matrix-canvas');
