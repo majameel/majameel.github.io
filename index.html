@@ -2277,18 +2277,26 @@
             });
         });
 
-       // Resume Download (Redirect to Google Drive)
+       // Resume Download
 document.getElementById('downloadResume').addEventListener('click', function(e) {
     e.preventDefault();
-
-    // Show loading animation
-    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
-
-    // Redirect to the Google Drive resume link after a short delay
+    
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.href = 'https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing'; // Replace with actual resume URL
+    link.download = 'Mohd_Abdul_Jameel_Resume.pdf';
+    
+    // Simulate download
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+    
     setTimeout(() => {
-        window.location.href = 'https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing'; // Your actual resume link
-    }, 1200);
+        this.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+        setTimeout(() => {
+            this.innerHTML = '<i class="fas fa-download"></i> Download Resume';
+        }, 2000);
+    }, 1500);
 });
+
 
             
             // Remove any existing matrix canvas
