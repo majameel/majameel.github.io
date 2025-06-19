@@ -1469,7 +1469,7 @@
         <div class="nav-container">
             <a href="#home" class="flex items-center space-x-2 logo code-font">
                 <img src="assets/logo.png" alt="Jameel Logo" class="w-8 h-8 rounded-full" />
-                <span>majameel.tech</span>
+                <span>Jameel.sec</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -1511,14 +1511,10 @@
                     <i class="fas fa-envelope"></i>
                     Get In Touch
                 </a>
-                <a href="https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing" 
-   class="btn btn-secondary" 
-   id="downloadResume" 
-   rel="noopener noreferrer">
-   <i class="fas fa-download"></i> Download Resume
-</a>
-
-
+                <button class="btn btn-secondary" id="downloadResume">
+                    <i class="fas fa-download"></i>
+                    Download Resume
+                </button>
             </div>
         </div>
     </section>
@@ -2190,11 +2186,37 @@
     </footer>
 
     <script>
-        // Loading Screen
-        window.addEventListener('load', function() {
+        // FIXED Loading Screen - Uses DOMContentLoaded instead of window.load
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
-            }, 2000);
+            }, 1500);
+        });
+
+        // Emergency fallback - Force hide loading screen after 3 seconds
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading && !loading.classList.contains('hidden')) {
+                loading.classList.add('hidden');
+                console.log('Emergency fallback: Loading screen hidden');
+            }
+        }, 3000);
+
+        // Image error handling for missing assets
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    console.log('Image failed to load:', this.src);
+                    // Set a fallback placeholder for different image contexts
+                    if (this.src.includes('portfolio.jpeg')) {
+                        this.src = 'https://via.placeholder.com/220x220/1a1a1a/00ffff?text=MJ';
+                    } else if (this.src.includes('logo.png')) {
+                        this.src = 'https://via.placeholder.com/32x32/1a1a1a/00ffff?text=J';
+                    } else {
+                        this.src = 'https://via.placeholder.com/300x200/1a1a1a/00ffff?text=Image+Not+Found';
+                    }
+                });
+            });
         });
 
         // Mobile Menu Toggle
@@ -2277,27 +2299,73 @@
             });
         });
 
-       // Resume Download
-document.getElementById('downloadResume').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    // Create a temporary download link
-    const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing'; // Replace with actual resume URL
-    link.download = 'Mohd_Abdul_Jameel_Resume.pdf';
-    
-    // Simulate download
-    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-    
-    setTimeout(() => {
-        this.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-        setTimeout(() => {
-            this.innerHTML = '<i class="fas fa-download"></i> Download Resume';
-        }, 2000);
-    }, 1500);
-});
+        // FIXED Resume Download - Opens Google Drive link
+        document.getElementById('downloadResume').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Open Google Drive link in new tab
+            window.open('https://drive.google.com/file/d/1o9NZVJAiPnyTXWEFfMtCYKu1GFNd95HO/view?usp=sharing', '_blank');
+            
+            // Visual feedback
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-check"></i> Opened!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-download"></i> Download Resume';
+                }, 2000);
+            }, 1500);
+        });
 
+        // FIXED Background Effects
+        function createParticle() {
+            const particle = document.createElement('div');
+            
+            // Fix: Use actual hex colors instead of CSS variables
+            const colors = ['#00ffff', '#00ff41']; // cyan and green
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.position = 'fixed';
+            particle.style.width = '3px';
+            particle.style.height = '3px';
+            particle.style.background = randomColor;
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = '-10px';
+            particle.style.pointerEvents = 'none';
+            particle.style.opacity = '0.8';
+            particle.style.borderRadius = '50%';
+            particle.style.zIndex = '10'; // FIXED: Positive z-index
+            particle.style.boxShadow = `0 0 6px ${randomColor}`;
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 4000 + 3000;
+            const drift = (Math.random() - 0.5) * 200;
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0) translateX(0) scale(1)', opacity: 0.8 },
+                { transform: `translateY(${window.innerHeight + 50}px) translateX(${drift}px) scale(0.5)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'ease-out'
+            });
+            
+            animation.onfinish = () => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            };
+        }
 
+        // FIXED Matrix Rain Effect
+        function createMatrixRain() {
+            console.log('Creating matrix rain...');
+            
+            const hero = document.querySelector('.hero');
+            if (!hero) {
+                console.log('Hero section not found!');
+                return;
+            }
             
             // Remove any existing matrix canvas
             const existingCanvas = hero.querySelector('.matrix-canvas');
