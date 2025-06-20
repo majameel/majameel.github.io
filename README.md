@@ -3,7 +3,7 @@
 A modern, interactive portfolio website showcasing cybersecurity expertise with Matrix rain effects and dynamic animations.
 
 ## 🌐 Live Website
-**[https://majameel.github.io](https://majameel.github.io)**
+**[https://majameel.github.io](https://majameel.tech)**
 
 ## 📋 Sections
 - 👨‍💻 **About** - Professional background and stats
